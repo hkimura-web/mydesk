@@ -723,3 +723,52 @@ dialog label{font-size:11px;font-weight:600;color:#5c6c80}dialog input,dialog se
 
 .md-sidebar-backdrop{display:none}
 @media(max-width:760px){.md-sidebar-backdrop{position:fixed;inset:0;z-index:19;display:block;border:0;background:#0d1a2a80;opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}.md-sidebar-backdrop.visible{opacity:1;visibility:visible}.mydesk-sidebar{z-index:20}}
+
+
+/* MYDESK visual system refinement — consistent across every workspace view */
+.md-home-link{border:0;background:transparent;padding:5px 7px;margin-left:-7px;border-radius:6px;color:#3e7eae;font:700 11px 'DM Sans','Noto Sans JP',sans-serif;letter-spacing:1.05px;cursor:pointer;transition:background .16s,color .16s}
+.md-home-link:hover{background:#edf5fb;color:#1e5f94}
+.md-home-link:focus-visible{outline:2px solid #68a8dc;outline-offset:2px}
+.md-breadcrumb i{margin:0 1px}
+.md-workspace{max-width:1680px;padding:30px clamp(22px,3vw,48px) 34px}
+.md-topbar{height:72px;padding:0 clamp(22px,3vw,48px);box-shadow:0 1px 0 #1b355008}
+.md-main{background:#f5f7fa}
+.md-day-intro{margin:0 0 22px;padding:4px 0 7px}
+.md-day-intro h1{font-size:27px;letter-spacing:-.8px;font-weight:700}
+.md-eyebrow{letter-spacing:2px;color:#4c8cbd}
+#app{color:#25364a}
+#app>.panel,#app .panel,#app .wcard,#app .wdet{border:1px solid #e4eaf1;border-radius:14px;background:#fff;box-shadow:0 2px 10px #1a2e4408}
+#app>.panel{margin-bottom:18px}
+#app>.panel .panel-h,#app .panel .panel-h{padding:14px 18px;background:#fbfcfe;border-bottom:1px solid #edf1f5}
+#app>.panel .panel-h h2,#app .panel .panel-h h2{font-size:13px;letter-spacing:.01em;font-weight:700;color:#2b4057}
+#app>.panel .panel-b,#app .panel .panel-b{padding:17px 18px}
+#app .panel-n{color:#8a99aa}
+#app .btn{border-radius:8px;border:1px solid #dce5ee;background:#fff;color:#52667d;font-weight:600;transition:background .15s,border-color .15s,transform .15s}
+#app .btn:hover{background:#f4f8fb;border-color:#bfd2e3}
+#app .btn.on{background:#286fa7;border-color:#286fa7;color:#fff;box-shadow:0 2px 5px #286fa722}
+#app .btn.danger{color:#a54a45}
+#app input,#app select,#app textarea{border:1px solid #dce5ed;border-radius:8px;background:#fff;color:#293d52;padding:8px 10px}
+#app input:focus,#app select:focus,#app textarea:focus{outline:2px solid #c6def1;border-color:#6fa4cc}
+#app .tile{border-radius:12px;background:#fbfcfe;border-color:#e5ebf1}
+#app .tile:hover{border-color:#b9d2e6;box-shadow:0 5px 16px #1b36500d}
+#app .slot{border-radius:12px}
+#app .wcard{padding:15px 17px;transition:border-color .15s,box-shadow .15s}
+#app .wcard:hover{border-color:#cbdbe9;box-shadow:0 5px 18px #1b36500c}
+#app .wit{border-bottom:1px solid #edf1f5}
+#app .wdet{padding:14px 16px;background:#fafcfe}
+#app table{border-color:#e5ebf1}
+#app th{background:#f5f8fb;color:#50647a;font-weight:700}
+#app td,#app th{border-color:#e8edf2}
+#app a{color:#286fa7}
+#app .chip{background:#f0f4f8;color:#61748a}
+#app .pill{letter-spacing:.01em}
+#app .gridbar{background:#f8fafc;border-color:#e5ebf1}
+#app .note,#app .hint{color:#7e8da0}
+#app .csec{color:#3f6f95;border-bottom-color:#e8eef4}
+.md-footer{color:#9aa8b7}
+@media(max-width:760px){
+ .md-workspace{padding:18px 14px 26px}
+ .md-topbar{height:60px}
+ .md-home-link{font-size:10px}
+ #app>.panel .panel-b,#app .panel .panel-b{padding:13px}
+}
