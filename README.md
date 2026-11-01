@@ -1,18 +1,27 @@
-# MYDESK — Personal Work Portal
+# MYDESK — Teaching Workspace
 
-Googleスプレッドシート「全データPortal・ICTマニュアル」のリンク構成をもとにした、静的な業務ポータルの試作版です。
+MYDESK is the integrated main workspace. The Claude-built `myClassBlueprint.log` application is the functional foundation; its lesson-management, editing, carry-forward, reminder, backup, GitHub sync, work-management, calendar, link and document functions are retained. The main navigation has been redesigned as a persistent left sidebar, with the lesson dashboard as the default entry point.
 
-## 起動方法
-- `index.html` をブラウザで開くだけで動作します。
-- GitHub Pagesで公開する場合は、このフォルダ内のファイルをリポジトリのルートに配置し、Settings → Pages で公開元を設定してください。
+## Included data
 
-## 構成
-- `index.html` : 画面・検索・お気に入り機能
-- `data.js` : Excelから抽出したリンクデータ
-- `favicon.svg` : MYDESKアイコン
+`data/index.json` indexes all supplied term backups: 2024-2, 2024-3, 2025-1, 2025-2, 2025-3 and 2026-2. The previous MYDESK portal is retained under `portal/` and can be opened from the sidebar as 「ポータル資料・過年度」. It preserves its year archives, search and favorites. Existing lesson JSON content is copied without rewriting its lesson records.
 
-## 注意
-- 元ファイル内のリンク先を利用するため、リンク先のGoogleアカウント権限が必要です。
-- 認証情報らしきセル（ユーザー名・パスワード等）は取り込んでいません。
-- GitHubに登録する前に、リンク先に生徒情報・校内限定情報・認証情報が含まれていないか確認してください。公開リポジトリではなくPrivateを推奨します。
-- お気に入りは利用中のブラウザのlocalStorageに保存されます。
+## Run locally
+
+```bash
+python3 -m http.server 8000
+```
+Open http://localhost:8000/ . Do not open `index.html` directly as a file.
+
+## GitHub Pages / sync
+
+Upload the contents of this folder to a GitHub repository. Enable Pages on `main` / root. In MYDESK Settings, enter a fine-grained GitHub token restricted to this repository with Contents read/write. The token stays in the browser's local storage. Each device needs its own token configuration.
+
+## Privacy
+
+GitHub Pages is public when hosted from a public repository. Do not publish student names, grades, personal details, or confidential school information. The provided lesson data contains class schedules and classroom links; review the repository visibility and contents before publishing. Consider a private hosting approach if any included material is not suitable for public access.
+
+## Data safety
+
+- Supplied term JSON backups are retained under `data/`.
+- App-generated exports should be backed up regularly.
