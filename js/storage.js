@@ -46,8 +46,18 @@
     e.status = res.status;
     throw e;
   }
+  async function timedFetch(url, options, timeoutMs) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs || 10000);
+    try {
+      return await fetch(url, Object.assign({}, options || {}, { signal: controller.signal }));
+    } catch (e) {
+      if (e && e.name === "AbortError") throw new Error("GitHubとの通信がタイムアウトしました。公開データで表示を続けます。");
+      throw e;
+    } finally { clearTimeout(timer); }
+  }
   async function remoteGet(s, path) {
-    const res = await fetch(ghUrl(s, path) + "?ref=" + encodeURIComponent(s.branch) + "&t=" + Date.now(), { headers: headers(s), cache: "no-store" });
+    const res = await timedFetch(ghUrl(s, path) + "?ref=" + encodeURIComponent(s.branch) + "&t=" + Date.now(), { headers: headers(s), cache: "no-store" }, 10000);
     if (!res.ok) await fail(res);
     const j = await res.json();
     return { text: b64d(j.content || ""), sha: j.sha };
@@ -55,7 +65,7 @@
   async function remotePut(s, path, text, sha, message) {
     const body = { message, content: b64e(text), branch: s.branch };
     if (sha) body.sha = sha;
-    const res = await fetch(ghUrl(s, path), { method: "PUT", headers: Object.assign({ "Content-Type": "application/json" }, headers(s)), body: JSON.stringify(body) });
+    const res = await timedFetch(ghUrl(s, path), { method: "PUT", headers: Object.assign({ "Content-Type": "application/json" }, headers(s)), body: JSON.stringify(body) }, 15000);
     if (!res.ok) await fail(res);
     const j = await res.json();
     return { sha: j.content.sha };
