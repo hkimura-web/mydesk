@@ -262,10 +262,10 @@
   A.work.todayPanel = function () {
     if (!W.ready) return "";
     const due = dueList(), mc = monthCounts();
-    if (!due.length && !mc.cur && !mc.carry) return "";
-    let b = due.length ? due.map(x => item(x.t, x.m, dueTag(x))).join("") : '<p class="note" style="margin:0 0 6px">今日が期限の仕事はありません。</p>';
-    if (mc.cur || mc.carry) b += '<p class="note" style="margin:8px 0 0">' + (mc.cur ? mc.m0 + "月の仕事（日付なし）：未完了 " + mc.cur + "件" : "") + (mc.cur && mc.carry ? " ／ " : "") + (mc.carry ? "繰越 " + mc.carry + "件" : "") + ' <button class="btn sm" data-wact="go-home">仕事タブを開く</button></p>';
-    return panel("p-work", "今日の仕事", due.length ? due.length + "件" : "", b);
+    let b = due.length ? due.map(x => item(x.t, x.m, dueTag(x))).join("") : '<p class="note" style="margin:0 0 6px">今日が期限のタスクはありません。必要な仕事を確認しましょう。</p>';
+    if (mc.cur || mc.carry) b += '<p class="note" style="margin:8px 0 0">' + (mc.cur ? mc.m0 + "月の仕事（日付なし）：未完了 " + mc.cur + "件" : "") + (mc.cur && mc.carry ? " ／ " : "") + (mc.carry ? "繰越 " + mc.carry + "件" : "") + "</p>";
+    b += '<div class="md-task-open"><button class="btn sm" data-wact="go-home">今日のタスクを開く　→</button></div>';
+    return panel("p-work", "今日のタスク", due.length ? due.length + "件" : "タスク確認", b);
   };
   /* 「記録待ち」と同じお知らせ画面に出す、期限が近い仕事 */
   A.work.remHtml = function () {

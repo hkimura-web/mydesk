@@ -3,71 +3,95 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101d32">
 <title>MYDESK | Teaching Workspace</title>
-<meta name="description" content="授業を中心に、日々の仕事を一元管理するMYDESK。">
-<meta name="theme-color" content="#202d42">
+<meta name="description" content="授業を中心に、日々の仕事を一つにつなぐパーソナルワークスペース。">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="wrap app-shell">
-  <aside class="sidebar" aria-label="メインナビゲーション">
-    <div class="side-brand brand" role="link" tabindex="0" data-home="1" title="トップ（今日の授業）へ" aria-label="トップ（今日の授業）へ">
-      <div class="brand-mark">M</div>
-      <div class="brand-copy"><h1>MYDESK</h1><div class="sub" id="sub">読み込み中…</div></div>
-    </div>
-    <div class="side-caption">WORKSPACE</div>
-    <div class="modebar" role="group" aria-label="授業と仕事の切り替え">
-      <div class="seg modeseg"><button data-act="mode" data-v="class" id="mode-class" aria-pressed="true">授業</button><button data-act="mode" data-v="work" id="mode-work" aria-pressed="false">仕事</button></div>
-    </div>
-    <div class="side-section-label">授業管理</div>
-    <div class="tabbar" id="classtabs">
-      <div class="tabs" role="tablist">
-        <button class="tab" role="tab" id="tab-today" data-tab="today"><span class="nav-ico">◷</span><span>今日の授業</span></button>
-        <button class="tab" role="tab" id="tab-plan" data-tab="plan"><span class="nav-ico">☷</span><span>授業計画</span></button>
-        <button class="tab" role="tab" id="tab-grid" data-tab="grid"><span class="nav-ico">▦</span><span>授業一覧</span></button>
-        <button class="tab" role="tab" id="tab-unit" data-tab="unit"><span class="nav-ico">▱</span><span>単元管理</span></button>
-        <button class="tab" role="tab" id="tab-sum" data-tab="sum"><span class="nav-ico">▥</span><span>授業サマリー</span></button>
-        <button class="tab" role="tab" id="tab-lib" data-tab="lib"><span class="nav-ico">▤</span><span>教材・資料</span></button>
+<div class="wrap" id="mydesk-shell">
+  <aside class="mydesk-sidebar" id="mydesk-sidebar">
+    <button class="md-brand" data-goto="today" aria-label="MYDESK ホームへ">
+      <span class="md-mark">M</span><span class="md-brandcopy"><b>MYDESK</b><small>TEACHING WORKSPACE</small></span>
+    </button>
+    <div class="md-side-scroll">
+      <div class="md-navgroup">
+        <div class="md-navlabel">TEACHING</div>
+        <button class="md-navitem active" data-goto="today"><span class="md-icon">◫</span><span>今日の授業</span><kbd>01</kbd></button>
+        <button class="md-navitem" data-goto="plan"><span class="md-icon">▤</span><span>授業計画</span></button>
+        <button class="md-navitem" data-goto="grid"><span class="md-icon">▦</span><span>授業一覧</span></button>
+        <button class="md-navitem" data-goto="unit"><span class="md-icon">◇</span><span>単元管理</span></button>
+        <button class="md-navitem" data-goto="sum"><span class="md-icon">▥</span><span>授業サマリー</span></button>
+        <button class="md-navitem" data-goto="lib"><span class="md-icon">▧</span><span>教材ライブラリ</span></button>
+      </div>
+      <div class="md-navgroup">
+        <div class="md-navlabel">DAILY WORK</div>
+        <button class="md-navitem" data-goto="work:home"><span class="md-icon">✓</span><span>今日のタスク</span></button>
+        <button class="md-navitem" data-goto="work:year"><span class="md-icon">▦</span><span>年間タスク</span></button>
+        <button class="md-navitem" data-goto="work:cal"><span class="md-icon">▣</span><span>カレンダー</span></button>
+      </div>
+      <div class="md-navgroup">
+        <div class="md-navlabel">RESOURCES</div>
+        <button class="md-navitem" data-goto="work:links"><span class="md-icon">↗</span><span>リンク集</span></button>
+        <button class="md-navitem" data-goto="work:docs"><span class="md-icon">▤</span><span>手順・メモ</span></button>
+        <a class="md-navitem md-navlink" href="portal/index.html"><span class="md-icon">▣</span><span>ポータル資料・過年度</span><span class="md-external">↗</span></a>
+      </div>
+      <div class="md-navgroup">
+        <div class="md-navlabel">ARCHIVE & SYSTEM</div>
+        <button class="md-navitem" data-goto="work:set"><span class="md-icon">⚙</span><span>仕事の設定</span></button>
+        <button class="md-navitem" data-goto="settings"><span class="md-icon">⌘</span><span>同期・バックアップ</span></button>
       </div>
     </div>
-    <div class="tabbar work-nav" id="worktabs" hidden>
-      <div class="side-section-label">日々の業務</div>
-      <div class="tabs wtabs" role="tablist">
-        <button class="tab" role="tab" data-wtab="home"><span class="nav-ico">⌂</span><span>仕事ホーム</span></button>
-        <button class="tab" role="tab" data-wtab="year"><span class="nav-ico">▦</span><span>年間タスク</span></button>
-        <button class="tab" role="tab" data-wtab="links"><span class="nav-ico">↗</span><span>リンク集</span></button>
-        <button class="tab" role="tab" data-wtab="docs"><span class="nav-ico">▤</span><span>手順・メモ</span></button>
-        <button class="tab" role="tab" data-wtab="cal"><span class="nav-ico">▦</span><span>カレンダー</span></button>
-        <button class="tab" role="tab" data-wtab="set"><span class="nav-ico">⚙</span><span>仕事の設定</span></button>
-      </div>
-    </div>
-    <div class="side-legacy">
-      <div class="side-section-label">REFERENCE</div>
-      <a class="side-link" href="portal/index.html"><span class="nav-ico">◫</span><span>ポータル資料・過年度</span><span class="side-link-arrow">↗</span></a>
-    </div>
-    <div class="side-bottom">
-      <div class="side-bottom-line"></div>
-      <div class="side-bottom-title">MYDESK</div>
-      <div>Teaching-centered<br>Personal Workspace</div>
-      <div class="side-version">v2.0 · 2026</div>
+    <div class="md-sidebar-bottom">
+      <div class="md-sync-indicator"><i></i><span id="md-sync-label">ローカルで利用中</span></div>
+      <div class="md-version">MYDESK <span>·</span> PERSONAL WORKSPACE</div>
     </div>
   </aside>
-  <div class="main-area">
-    <header class="topbar">
-      <div class="topbar-title"><span class="topbar-kicker">MYDESK / WORKSPACE</span><strong id="page-context">今日の授業</strong></div>
-      <div class="tools">
+
+  <main class="md-main">
+    <span id="sub" hidden></span>
+    <header class="md-topbar">
+      <div class="md-top-left">
+        <button class="md-mobile-menu" id="md-mobile-menu" aria-label="メニュー">☰</button>
+        <div class="md-breadcrumb"><span>MYDESK</span><i>/</i><b id="md-current-view">今日の授業</b></div>
+      </div>
+      <div class="md-top-tools">
         <label class="asof" for="term" id="termwrap" hidden>学期<select id="term"></select></label>
-        <label class="asof" for="asof">基準日<input type="date" id="asof"></label>
-        <button class="btn ghost" data-act="settings" id="btn-settings">設定</button>
+        <label class="asof" for="asof"><span>基準日</span><input type="date" id="asof"></label>
+        <span class="md-top-divider"></span>
+        <button class="btn ghost" data-act="settings" id="btn-settings">同期・設定</button>
+        <div class="md-avatar">H</div>
       </div>
     </header>
-    <div class="main-status"><div class="status" id="status" role="status"></div><div id="banner"></div></div>
-    <main id="app"></main>
-    <footer class="app-footer"><span>MYDESK · TEACHING WORKSPACE</span><span>授業を中心に、日々の仕事をひとつに。</span></footer>
-  </div>
+
+    <div class="md-workspace">
+      <div class="status" id="status" role="status"></div>
+      <div id="banner"></div>
+      <div id="app" class="md-app"></div>
+      <footer class="md-footer"><span>MYDESK · TEACHING WORKSPACE</span><span>Designed for clarity. Built for everyday teaching.</span></footer>
+    </div>
+  </main>
+</div>
+
+<!-- 既存の授業・仕事機能をそのまま利用するための互換ナビゲーション -->
+<div class="md-compat" aria-hidden="true">
+  <div class="modebar" role="group"><button data-act="mode" data-v="class" id="mode-class" aria-pressed="true">授業</button><button data-act="mode" data-v="work" id="mode-work" aria-pressed="false">仕事</button></div>
+  <div class="tabbar" id="classtabs"><div class="tabs">
+    <button class="tab" id="tab-today" data-tab="today" aria-selected="true">今日</button>
+    <button class="tab" id="tab-plan" data-tab="plan" aria-selected="false">計画表</button>
+    <button class="tab" id="tab-grid" data-tab="grid" aria-selected="false">一覧</button>
+    <button class="tab" id="tab-unit" data-tab="unit" aria-selected="false">単元別</button>
+    <button class="tab" id="tab-sum" data-tab="sum" aria-selected="false">サマリー</button>
+    <button class="tab" id="tab-lib" data-tab="lib" aria-selected="false">資料</button>
+  </div></div>
+  <div class="tabbar" id="worktabs" hidden><div class="tabs">
+    <button class="tab" data-wtab="home">ホーム</button><button class="tab" data-wtab="year">年間</button><button class="tab" data-wtab="links">リンク集</button><button class="tab" data-wtab="docs">手順・メモ</button><button class="tab" data-wtab="cal">カレンダー</button><button class="tab" data-wtab="set">設定</button>
+  </div></div>
 </div>
 
 <dialog id="celldlg" aria-label="コマの記録"><div id="cellbody"></div></dialog>
@@ -78,25 +102,23 @@
 <dialog id="remdlg" aria-label="記録がまだ入っていない授業"><div id="rembody"></div></dialog>
 <dialog id="dlg" aria-labelledby="dlg-title">
   <h2 id="dlg-title">設定</h2>
-  <p class="small" style="margin:0 0 4px">GitHubの情報を入れると、授業記録や仕事のデータがこのリポジトリに自動保存されます。接続しなくても、この端末内で利用できます。</p>
+  <p class="small" style="margin:0 0 4px">GitHubの情報を入れると、記録がこのリポジトリのJSONに自動で保存されます（直すたびにコミットされます）。入れなくても、この端末の中だけで使えます。</p>
   <label for="s_owner">GitHubのユーザー名</label><input type="text" id="s_owner" autocomplete="off" autocapitalize="off">
   <label for="s_repo">リポジトリ名</label><input type="text" id="s_repo" autocomplete="off" autocapitalize="off">
   <label for="s_branch">ブランチ</label><input type="text" id="s_branch" autocomplete="off" autocapitalize="off">
   <label for="s_token">アクセストークン（このリポジトリだけに Contents の読み書きを許可したもの）</label><input type="password" id="s_token" autocomplete="off">
   <p class="small"><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">トークンを作るページを開く（GitHub）</a></p>
   <p class="small" id="s_msg" role="status"></p>
-  <div class="dlg-btns" style="justify-content:flex-start">
-    <button class="btn" data-act="test">接続を確かめる</button><button class="btn" data-act="export">JSONを書き出す</button>
-    <label class="btn" for="importfile" style="margin:0;color:var(--ink);font-size:inherit">JSONを読み込む</label><input type="file" id="importfile" accept="application/json,.json" hidden>
-  </div>
-  <div class="dlg-btns" style="justify-content:space-between">
-    <button class="btn danger" data-act="forget" title="共用のパソコンで使ったあとに押します">この端末の設定を消す</button>
-    <span class="btns"><button class="btn" data-act="close-dlg">閉じる</button><button class="btn on" data-act="save-settings">保存して反映</button></span>
-  </div>
+  <div class="dlg-btns" style="justify-content:flex-start"><button class="btn" data-act="test">接続を確かめる</button><button class="btn" data-act="export">JSONを書き出す</button><label class="btn" for="importfile" style="margin:0;color:var(--ink);font-size:inherit">JSONを読み込む</label><input type="file" id="importfile" accept="application/json,.json" hidden></div>
+  <div class="dlg-btns" style="justify-content:space-between"><button class="btn danger" data-act="forget" title="共用のパソコンで使ったあとに押します">この端末の設定を消す</button><span class="btns"><button class="btn" data-act="close-dlg">閉じる</button><button class="btn on" data-act="save-settings">保存して反映</button></span></div>
 </dialog>
-<script src="js/logic.js"></script><script src="js/storage.js"></script><script src="js/views.js"></script><script src="js/library.js"></script><script src="js/workseed.js"></script><script src="js/work.js"></script><script src="js/main.js"></script>
-<script>
-// Sidebar context label follows the original Claude app's navigation state.
-(function(){const app=document.getElementById('app');const set=()=>{const w=document.body.classList.contains('workmode');const el=document.getElementById('page-context');if(!el)return;if(w){const b=document.querySelector('[data-wtab][aria-selected="true"]');el.textContent=b?b.textContent.trim():'仕事';}else{const b=document.querySelector('.tab[aria-selected="true"]');el.textContent=b?b.textContent.trim():'今日の授業';}};new MutationObserver(set).observe(app,{childList:true,subtree:true});document.addEventListener('click',e=>{if(e.target.closest('[data-tab],[data-wtab],[data-act="mode"]'))set();});const brand=document.querySelector('.side-brand');if(brand)brand.addEventListener('click',()=>{const mode=document.getElementById('mode-class');if(mode)mode.click();const today=document.querySelector('[data-tab="today"]');if(today)today.click();});set();})();
-</script>
-</body></html>
+<script src="js/logic.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/views.js"></script>
+<script src="js/library.js"></script>
+<script src="js/workseed.js"></script>
+<script src="js/work.js"></script>
+<script src="js/main.js"></script>
+<script src="js/mydesk.js"></script>
+</body>
+</html>

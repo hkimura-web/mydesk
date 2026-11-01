@@ -146,6 +146,19 @@
   function viewToday() {
     const st = A.st, asof = A.ui.asof;
     const all = st.classes.map(c => ({ c, s: J.classStats(st, c, asof) }));
+    const rows = [];
+    all.forEach(({ s }) => s.pj.rows.forEach(r => rows.push(r)));
+    rows.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : ((a.periods || [0])[0] - (b.periods || [0])[0]) || (a.key < b.key ? -1 : 1));
+    const evT = st.events[asof];
+    const today = rows.filter(r => r.date === asof);
+    const wait = rows.filter(r => r.date < asof && r.kind === "plan").length;
+
+    /* MYDESK dashboard: the actual lessons are the first and largest element. */
+    let h = '<section class="md-day-intro"><div><div class="md-eyebrow">YOUR TEACHING DAY</div><h1>今日の授業</h1><p>授業の予定と記録を、ここから。</p></div><div class="md-date-large"><b>' + md(asof) + '</b><span>' + dw(asof) + '曜日</span></div></section>';
+    h += panel("p-now", md(asof) + "（" + dw(asof) + "）の授業", today.length ? today.length + "コマ" : "授業なし", (evT ? '<p class="note md-event-note">本日の行事：' + esc(evT) + "</p>" : "") +
+      (today.length ? '<div class="list">' + today.map(r => slotCard(r, true)).join("") + '</div>' : '<div class="md-empty-day"><span class="md-empty-icon">◷</span><b>本日の担当授業はありません</b><span>授業計画やタスクを確認しましょう。</span></div>'));
+    if (A.work) h += A.work.todayPanel();
+
     let tiles = "<div class='tiles'>";
     all.forEach(({ c, s }) => {
       const [a, b] = parts(c.name), o = split(s.pj.rows, asof);
@@ -154,23 +167,14 @@
       tiles += '<button class="tile k-' + subj(c.name) + '" data-act="goplan" data-id="' + c.id + '"><span class="tile-h"><b>' + esc(a) + "</b><span>" + esc(b) + '</span></span><span class="big num">' + s.remain + '<small>時間</small></span>' + meter(o, false) + "<span>" + gap + "</span></button>";
     });
     tiles += "</div>";
-    let h = panel("p-rem", "残りの授業時間", md(asof) + "から", tiles);
+    h += panel("p-rem", "担当クラスの授業進度", "クラス別", tiles);
 
-    const rows = [];
-    all.forEach(({ s }) => s.pj.rows.forEach(r => rows.push(r)));
-    rows.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : ((a.periods || [0])[0] - (b.periods || [0])[0]) || (a.key < b.key ? -1 : 1));
-    const evT = st.events[asof];
-    const today = rows.filter(r => r.date === asof);
-    h += panel("p-now", md(asof) + "（" + dw(asof) + "）の授業", today.length ? today.length + "コマ" : "", (evT ? '<p class="note" style="margin:0 0 8px">行事：' + esc(evT) + "</p>" : "") +
-      (today.length ? '<div class="list">' + today.map(r => slotCard(r, true)).join("") + "</div>" : '<p class="note" style="margin:0">この日に担当授業はありません。</p>'));
-    if (A.work) h += A.work.todayPanel();
     const lim = addDays(asof, 7);
     const soon = rows.filter(r => r.date > asof && r.date <= lim && r.kind !== "off");
-    h += panel("p-soon", "これから1週間", soon.length ? soon.length + "コマ" : "", soon.length ? '<div class="list">' + soon.map(r => slotCard(r, true)).join("") + "</div>" : '<p class="note" style="margin:0">授業の予定はありません。</p>');
+    h += panel("p-soon", "これから1週間", soon.length ? soon.length + "コマ" : "予定なし", soon.length ? '<div class="list">' + soon.map(r => slotCard(r, true)).join("") + "</div>" : '<p class="note" style="margin:0">授業の予定はありません。</p>');
     const evs = Object.keys(st.events).filter(d => d > asof && d <= addDays(asof, 14)).sort();
     if (evs.length) h += panel("p-ev", "これからの行事（2週間）", evs.length + "件", evs.map(d => '<div class="blk"><span><b class="num">' + md(d) + "（" + dw(d) + "）</b>　" + esc(clip(st.events[d], 80)) + "</span></div>").join(""));
-    const wait = rows.filter(r => r.date < asof && r.kind === "plan").length;
-    if (wait) h += '<p class="note">記録がまだ入っていない過去のコマが ' + wait + " 件あります（計画表で「記録待ち」）。</p>";
+    if (wait) h += '<p class="note md-pending-note">記録がまだ入っていない過去のコマが ' + wait + " 件あります。授業サマリーで確認できます。</p>";
     return h;
   }
 

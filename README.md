@@ -1,27 +1,37 @@
 # MYDESK — Teaching Workspace
 
-MYDESK is the integrated main workspace. The Claude-built `myClassBlueprint.log` application is the functional foundation; its lesson-management, editing, carry-forward, reminder, backup, GitHub sync, work-management, calendar, link and document functions are retained. The main navigation has been redesigned as a persistent left sidebar, with the lesson dashboard as the default entry point.
+MYDESK is a teaching-centered personal workspace. The GPT Edition introduces a new persistent left sidebar, a calmer navy/white visual system, a lesson-first daily dashboard, and a shared editing experience while retaining the established lesson and work-management functions.
 
-## Included data
+## Design principle
 
-`data/index.json` indexes all supplied term backups: 2024-2, 2024-3, 2025-1, 2025-2, 2025-3 and 2026-2. The previous MYDESK portal is retained under `portal/` and can be opened from the sidebar as 「ポータル資料・過年度」. It preserves its year archives, search and favorites. Existing lesson JSON content is copied without rewriting its lesson records.
+- **New MYDESK experience:** left navigation, persistent workspace shell, date/term controls, lesson-first home screen, compact cards, responsive layout, and unified dialogs.
+- **Retained functional foundation:** the original `myClassBlueprint.log` lesson-management and work-management engine is kept. The original plan, grid/list, unit management, summaries, lesson status editing, automatic plan shifting after cancellations, carry-forward, reminders, material links, task management, annual work, link library, procedure notes, calendar export, backup/import, and GitHub synchronization remain available.
+- **No feature removal policy:** features are retained by default. Any proposed removal or material behavior change should be discussed and approved first.
+
+## Included data and resources
+
+`data/index.json` indexes the supplied term backups: 2024-2, 2024-3, 2025-1, 2025-2, 2025-3 and 2026-2. The six lesson JSON files are copied without rewriting their lesson records. The previous MYDESK portal is retained under `portal/` and can be opened from the sidebar at 「ポータル資料・過年度」. It preserves its resource search, year archives and favorites.
 
 ## Run locally
 
 ```bash
 python3 -m http.server 8000
 ```
-Open http://localhost:8000/ . Do not open `index.html` directly as a file.
 
-## GitHub Pages / sync
+Open http://localhost:8000/ . Do not open `index.html` directly as a file, because the app loads JSON data with `fetch()`.
 
-Upload the contents of this folder to a GitHub repository. Enable Pages on `main` / root. In MYDESK Settings, enter a fine-grained GitHub token restricted to this repository with Contents read/write. The token stays in the browser's local storage. Each device needs its own token configuration.
+## GitHub Pages and synchronization
+
+Upload the **contents of this folder** to the repository root (so `index.html` is at the repository root). Enable GitHub Pages from the `main` branch / root. In MYDESK, open 「同期・設定」 and enter a fine-grained GitHub token restricted to this repository with Contents read/write permission. The token stays in the browser's local storage; configure each device separately.
+
+The work-management data file `data/work.json` is created automatically from the built-in seed when first used. Lesson changes are stored in their respective `data/*.json` files.
 
 ## Privacy
 
-GitHub Pages is public when hosted from a public repository. Do not publish student names, grades, personal details, or confidential school information. The provided lesson data contains class schedules and classroom links; review the repository visibility and contents before publishing. Consider a private hosting approach if any included material is not suitable for public access.
+GitHub Pages hosted from a public repository is publicly accessible. The supplied lesson data includes class schedules and classroom/resource links. Keep the repository private unless you have reviewed all files and confirmed they are safe to publish. Do not publish student names, grades, personal details, or confidential school information.
 
 ## Data safety
 
-- Supplied term JSON backups are retained under `data/`.
-- App-generated exports should be backed up regularly.
+- Original supplied term JSON backups are retained under `data/`.
+- The previous portal is retained under `portal/`.
+- Export backups regularly, especially before making structural changes or connecting a new device.
