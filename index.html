@@ -15,6 +15,7 @@
 </head>
 <body>
 <div class="wrap" id="mydesk-shell">
+  <button class="md-sidebar-backdrop" id="md-sidebar-backdrop" type="button" aria-label="メニューを閉じる"></button>
   <aside class="mydesk-sidebar" id="mydesk-sidebar">
     <button class="md-brand" data-goto="today" aria-label="MYDESK ホームへ">
       <span class="md-mark">M</span><span class="md-brandcopy"><b>MYDESK</b><small>TEACHING WORKSPACE</small></span>
@@ -64,6 +65,7 @@
         <label class="asof" for="term" id="termwrap" hidden>学期<select id="term"></select></label>
         <label class="asof" for="asof"><span>基準日</span><input type="date" id="asof"></label>
         <span class="md-top-divider"></span>
+        <button class="md-search-trigger" id="md-search-trigger" type="button" aria-label="検索・移動（Ctrl K）" aria-haspopup="dialog" aria-controls="quickdlg"><span class="md-search-symbol">⌕</span><span>検索・移動</span><kbd>Ctrl K</kbd></button>
         <button class="btn ghost" data-act="settings" id="btn-settings">同期・設定</button>
         <div class="md-avatar">H</div>
       </div>
@@ -94,6 +96,12 @@
   </div></div>
 </div>
 
+<dialog id="quickdlg" class="quick-dialog" aria-label="MYDESK クイック検索">
+  <div class="quick-head"><span class="quick-search-icon">⌕</span><input id="quick-input" type="search" placeholder="授業・タスク・機能を検索…" autocomplete="off" aria-label="機能を検索"><kbd>ESC</kbd></div>
+  <div class="quick-caption">QUICK ACCESS</div>
+  <div id="quick-results" class="quick-results"></div>
+  <div class="quick-foot"><span>↑ ↓ 選択</span><span>Enter 開く</span><span>Ctrl K 検索</span></div>
+</dialog>
 <dialog id="celldlg" aria-label="コマの記録"><div id="cellbody"></div></dialog>
 <dialog id="flowdlg" aria-label="単元の予定を流し込む"><div id="flowbody"></div></dialog>
 <dialog id="urldlg" aria-label="Google Classroomのリンク"><div id="urlbody"></div></dialog>
@@ -120,5 +128,6 @@
 <script src="js/work.js"></script>
 <script src="js/main.js"></script>
 <script src="js/mydesk.js"></script>
+<script src="js/quick.js"></script>
 </body>
 </html>

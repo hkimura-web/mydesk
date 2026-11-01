@@ -688,3 +688,38 @@ dialog label{font-size:11px;font-weight:600;color:#5c6c80}dialog input,dialog se
 #app .wcard{border-radius:10px;border-color:#e5eaf0;background:#fff;padding:13px 15px;box-shadow:0 2px 9px #1b2a3d05}
 #app .wit{padding:10px 5px;border-bottom-color:#edf1f5}
 #app .wdet{border-radius:10px;border-color:#e5eaf0;background:#fff}
+
+/* MYDESK 1.2 — split daily dashboard and universal quick switcher */
+.md-today-grid{display:grid;grid-template-columns:minmax(0,1.42fr) minmax(290px,.88fr);gap:16px;align-items:start;margin-bottom:17px}
+.md-today-grid>.md-today-lessons>.panel,.md-today-grid>.md-today-tasks>.panel{height:100%;margin:0}
+.md-today-grid .md-today-tasks .panel-b{max-height:520px;overflow:auto}
+.md-today-grid .md-today-tasks .wit{gap:8px}
+.md-today-grid .md-today-tasks .wbody{min-width:0}
+.md-today-grid .md-today-tasks .md-task-open{margin-top:12px}
+.md-search-trigger{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid #e3e9f0;border-radius:9px;background:#f8fafc;color:#53657a;font:500 11px 'DM Sans','Noto Sans JP',sans-serif;cursor:pointer;white-space:nowrap;transition:.16s}
+.md-search-trigger:hover{border-color:#b9cfe2;background:#f1f7fc;color:#2e6f9f}
+.md-search-symbol{font-size:19px;line-height:12px;color:#5b8bb6}
+.md-search-trigger kbd,.quick-head kbd{font:600 9px 'DM Sans',sans-serif;color:#8997a7;background:#fff;border:1px solid #e2e8ef;border-radius:5px;padding:3px 5px}
+.quick-dialog{width:min(590px,calc(100vw - 28px));max-width:590px;padding:0;border:1px solid #dfe6ee;border-radius:16px;box-shadow:0 28px 90px #0b1a2d55;overflow:hidden}
+.quick-dialog::backdrop{background:#101d32a8;backdrop-filter:blur(4px)}
+.quick-head{display:flex;align-items:center;gap:12px;padding:15px 17px;border-bottom:1px solid #edf1f5}
+.quick-search-icon{font-size:25px;line-height:1;color:#6d91b4}
+.quick-head input{flex:1;min-width:0;border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;color:#26384d!important;font:500 15px 'DM Sans','Noto Sans JP',sans-serif!important;padding:5px 0!important}
+.quick-caption{padding:12px 18px 6px;color:#91a0af;font:700 9px 'DM Sans',sans-serif;letter-spacing:1.6px}
+.quick-results{max-height:min(430px,60vh);overflow:auto;padding:4px 8px 10px}
+.quick-item{display:flex;align-items:center;gap:12px;width:100%;padding:10px 11px;border:0;border-radius:9px;background:transparent;text-align:left;cursor:pointer;color:#34465b}
+.quick-item:hover,.quick-item.selected{background:#eef5fb}
+.quick-item-icon{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:#f0f4f8;color:#5682aa;font-size:16px;flex:none}
+.quick-item.selected .quick-item-icon{background:#dcecf9;color:#2c6fa7}
+.quick-item-copy{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.quick-item-copy b{font-size:12px;font-weight:700}
+.quick-item-copy small{font-size:10px;color:#8b99a8}
+.quick-enter{color:#a2afbc;font-size:13px}
+.quick-empty{padding:28px 12px;text-align:center;color:#8795a5;font-size:12px}
+.quick-foot{display:flex;gap:17px;padding:10px 17px;background:#f8fafc;border-top:1px solid #edf1f5;color:#91a0af;font-size:9px}
+@media(max-width:1120px){.md-today-grid{grid-template-columns:minmax(0,1.2fr) minmax(260px,.9fr)}.md-top-tools{gap:8px}.md-search-trigger{padding:7px 8px}.md-search-trigger kbd{display:none}}
+@media(max-width:900px){.md-today-grid{grid-template-columns:1fr}.md-today-grid .md-today-tasks .panel-b{max-height:none}}
+@media(max-width:760px){.md-search-trigger{width:34px;height:34px;justify-content:center;padding:0}.md-search-trigger>span:not(.md-search-symbol),.md-search-trigger kbd{display:none}.md-search-symbol{font-size:22px}.quick-dialog{border-radius:13px}.quick-foot{gap:10px;justify-content:space-between}}
+
+.md-sidebar-backdrop{display:none}
+@media(max-width:760px){.md-sidebar-backdrop{position:fixed;inset:0;z-index:19;display:block;border:0;background:#0d1a2a80;opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}.md-sidebar-backdrop.visible{opacity:1;visibility:visible}.mydesk-sidebar{z-index:20}}

@@ -12,6 +12,7 @@
   const syncDot = document.querySelector('.md-sync-indicator i');
   function goto(key) {
     if (key === 'settings') {
+      closeMobileNav();
       document.querySelector('[data-act="settings"]')?.click();
       return;
     }
@@ -22,7 +23,7 @@
       document.getElementById('mode-class')?.click();
       document.querySelector(`[data-tab="${key}"]`)?.click();
     }
-    sidebar?.classList.remove('open');
+    closeMobileNav();
     syncNav();
   }
   function syncNav() {
@@ -39,7 +40,14 @@
     if (syncDot) syncDot.classList.toggle('is-synced', /GitHubに保存済み/.test(statusText));
   }
   nav.forEach(b => b.addEventListener('click', () => goto(b.dataset.goto)));
-  document.getElementById('md-mobile-menu')?.addEventListener('click', () => sidebar?.classList.toggle('open'));
+  const backdrop = document.getElementById('md-sidebar-backdrop');
+  function closeMobileNav() { sidebar?.classList.remove('open'); backdrop?.classList.remove('visible'); }
+  document.getElementById('md-mobile-menu')?.addEventListener('click', () => {
+    const opening = !sidebar?.classList.contains('open');
+    sidebar?.classList.toggle('open', opening); backdrop?.classList.toggle('visible', opening);
+  });
+  backdrop?.addEventListener('click', closeMobileNav);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileNav(); });
   document.addEventListener('click', e => { if (e.target.closest('[data-tab],[data-wtab],[data-act="mode"]')) setTimeout(syncNav, 0); });
   const compat = document.querySelector('.md-compat');
   if (compat && 'MutationObserver' in window) new MutationObserver(syncNav).observe(compat, {subtree:true, attributes:true, attributeFilter:['aria-selected','aria-pressed','hidden']});

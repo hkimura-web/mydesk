@@ -4,13 +4,20 @@ MYDESK is a teaching-centered personal workspace. The GPT Edition introduces a n
 
 ## Design principle
 
-- **New MYDESK experience:** left navigation, persistent workspace shell, date/term controls, lesson-first home screen, compact cards, responsive layout, and unified dialogs.
+- **New MYDESK experience:** left navigation, persistent workspace shell, date/term controls, lesson-first home screen, compact cards, responsive layout, unified dialogs, and a keyboard-first Quick Access palette (Ctrl/⌘+K or /).
 - **Retained functional foundation:** the original `myClassBlueprint.log` lesson-management and work-management engine is kept. The original plan, grid/list, unit management, summaries, lesson status editing, automatic plan shifting after cancellations, carry-forward, reminders, material links, task management, annual work, link library, procedure notes, calendar export, backup/import, and GitHub synchronization remain available.
 - **No feature removal policy:** features are retained by default. Any proposed removal or material behavior change should be discussed and approved first.
 
 ## Included data and resources
 
-`data/index.json` indexes the supplied term backups: 2024-2, 2024-3, 2025-1, 2025-2, 2025-3 and 2026-2. The six lesson JSON files are copied without rewriting their lesson records. The previous MYDESK portal is retained under `portal/` and can be opened from the sidebar at 「ポータル資料・過年度」. It preserves its resource search, year archives and favorites.
+`data/index.json` indexes the supplied term backups: 2024-2, 2024-3, 2025-1, 2025-2, 2025-3 and 2026-2. The six lesson JSON files are copied without rewriting their lesson records. The previous MYDESK portal is retained under `portal/` and can be opened from the sidebar at 「ポータル資料・過年度」. Quick Access supports searching and switching among all main sections, and can open the annual task creation dialog. It preserves its resource search, year archives and favorites.
+
+## MYDESK interface additions
+
+- The Today dashboard places today’s lesson schedule first, with today’s work tasks alongside it on wide screens and below it on smaller screens.
+- The lesson progress, upcoming week, and upcoming events remain below the main daily workspace.
+- Quick Access can be opened from the top bar, with `Ctrl+K` / `⌘+K` or `/`. Use the arrow keys and Enter to navigate.
+- The mobile sidebar has a backdrop and closes after navigation or Escape.
 
 ## Run locally
 

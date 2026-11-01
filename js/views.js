@@ -155,9 +155,10 @@
 
     /* MYDESK dashboard: the actual lessons are the first and largest element. */
     let h = '<section class="md-day-intro"><div><div class="md-eyebrow">YOUR TEACHING DAY</div><h1>今日の授業</h1><p>授業の予定と記録を、ここから。</p></div><div class="md-date-large"><b>' + md(asof) + '</b><span>' + dw(asof) + '曜日</span></div></section>';
-    h += panel("p-now", md(asof) + "（" + dw(asof) + "）の授業", today.length ? today.length + "コマ" : "授業なし", (evT ? '<p class="note md-event-note">本日の行事：' + esc(evT) + "</p>" : "") +
+    const lessonPanel = panel("p-now", md(asof) + "（" + dw(asof) + "）の授業", today.length ? today.length + "コマ" : "授業なし", (evT ? '<p class="note md-event-note">本日の行事：' + esc(evT) + "</p>" : "") +
       (today.length ? '<div class="list">' + today.map(r => slotCard(r, true)).join("") + '</div>' : '<div class="md-empty-day"><span class="md-empty-icon">◷</span><b>本日の担当授業はありません</b><span>授業計画やタスクを確認しましょう。</span></div>'));
-    if (A.work) h += A.work.todayPanel();
+    const taskPanel = A.work ? A.work.todayPanel() : "";
+    h += '<div class="md-today-grid"><section class="md-today-lessons">' + lessonPanel + '</section>' + (taskPanel ? '<aside class="md-today-tasks">' + taskPanel + '</aside>' : '') + '</div>';
 
     let tiles = "<div class='tiles'>";
     all.forEach(({ c, s }) => {
