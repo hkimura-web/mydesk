@@ -559,6 +559,21 @@
     A.ui.gridEdit = LS.get("jd.gridEdit") !== "0";
     A.ui.mode = LS.get("jd.mode") === "work" ? "work" : "class";
     const saved = LS.get("jd.term");
-    await loadTerm(terms.some(t => t.id === saved) ? saved : terms[terms.length - 1].id);
+    try {
+      await loadTerm(terms.some(t => t.id === saved) ? saved : terms[terms.length - 1].id);
+    } catch (e) {
+      console.error("MYDESK boot error:", e);
+      fatal("起動中にエラーが発生しました：" + (e && e.message ? e.message : String(e)) + "。画面を再読み込みしてください。改善しない場合は、この表示内容を管理者に伝えてください。");
+    }
   })();
+  window.addEventListener("error", e => {
+    console.error("MYDESK runtime error:", e.error || e.message);
+    const app = $("app");
+    if (app && !app.innerHTML.trim()) fatal("画面の起動中にエラーが発生しました：" + (e.message || "詳細不明") + "。");
+  });
+  window.addEventListener("unhandledrejection", e => {
+    console.error("MYDESK async error:", e.reason);
+    const app = $("app");
+    if (app && !app.innerHTML.trim()) fatal("データの読み込み中にエラーが発生しました：" + (e.reason && e.reason.message ? e.reason.message : String(e.reason)) + "。");
+  });
 })();
