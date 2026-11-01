@@ -34,7 +34,7 @@
     nav.forEach(b => b.classList.toggle('active', b.dataset.goto === key || (key === 'today' && b.dataset.goto === 'today')));
     label.textContent = workMode ? (labels[selectedWork] || '仕事') : (labels[selectedClass] || '授業');
     const modeBtn = document.getElementById(workMode ? 'mode-work' : 'mode-class');
-    if (modeBtn) modeBtn.setAttribute('aria-pressed','true');
+    if (modeBtn && modeBtn.getAttribute('aria-pressed') !== 'true') modeBtn.setAttribute('aria-pressed','true');
     const statusText = document.getElementById('status')?.textContent || '';
     if (sync) sync.textContent = /GitHubに保存済み/.test(statusText) ? 'GitHubに同期済み' : /保存中/.test(statusText) ? '同期しています' : 'この端末に保存';
     if (syncDot) syncDot.classList.toggle('is-synced', /GitHubに保存済み/.test(statusText));
